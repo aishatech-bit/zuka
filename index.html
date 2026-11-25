@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZUKA — Drink the dark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070605;--fg:#f3ece0;--mut:#9b9488;--gold:#c9a45c;--glow:#d63a52;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) 5vw 18px;mix-blend-mode:difference}
+nav b{font-family:'Cormorant Garamond',serif;font-size:26px;letter-spacing:.3em}
+nav a{color:var(--fg);text-decoration:none;font-size:13px;letter-spacing:.15em;text-transform:uppercase;margin-left:24px}
+#scene{height:520vh;position:relative}
+.stick{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+video{width:100%;height:100%;object-fit:cover;display:block}
+.stick::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(7,6,5,.75));pointer-events:none}
+.t{position:absolute;left:5vw;right:5vw;bottom:12vh;z-index:5;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;max-width:620px}
+.t.on{opacity:1;transform:none}
+.t small{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.t h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,8vw,104px);line-height:.95;margin-top:12px}
+.t p{color:var(--mut);margin-top:14px;max-width:420px;line-height:1.6}
+.t.r{left:auto;text-align:right}
+.hint{position:absolute;z-index:5;bottom:4vh;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;color:var(--mut);text-transform:uppercase;transition:opacity .4s}
+.bar{position:absolute;z-index:6;left:0;top:0;height:2px;background:var(--gold);width:0}
+#col{padding:14vh 5vw;position:relative;transition:background .8s;background:radial-gradient(ellipse 60% 55% at 70% 50%,color-mix(in srgb,var(--glow) 38%,transparent),transparent 70%),var(--bg)}
+#col h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(36px,6vw,72px)}
+#col h3 i{color:var(--gold)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:32px 0 48px}
+.tabs button{background:none;border:1px solid #3a352c;color:var(--mut);padding:12px 20px;border-radius:99px;font:500 13px Inter;letter-spacing:.08em;cursor:pointer;transition:.3s}
+.tabs button.on{border-color:var(--glow);color:var(--fg);background:color-mix(in srgb,var(--glow) 22%,transparent)}
+.pane{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center}
+.pane img{width:100%;max-width:340px;justify-self:center;filter:drop-shadow(0 0 70px var(--glow));transition:filter .8s}
+.pane h4{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,56px);font-weight:500}
+.pane .n{color:var(--mut);margin:12px 0 20px;line-height:1.7}
+.meta{display:flex;gap:28px;margin-bottom:28px;font-size:14px}
+.meta span{display:block;color:var(--mut);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px}
+.btn{display:inline-block;background:var(--fg);color:#111;padding:16px 30px;border-radius:99px;text-decoration:none;font-weight:600;font-size:14px}
+.btn:hover{background:var(--gold)}
+footer{padding:8vh 5vw calc(8vh + env(safe-area-inset-bottom,0px));text-align:center;color:var(--mut);font-size:13px;border-top:1px solid #1d1a15}
+footer b{display:block;font-family:'Cormorant Garamond',serif;font-size:40px;letter-spacing:.3em;color:var(--fg);margin-bottom:10px}
+@media(max-width:760px){.pane{grid-template-columns:1fr}nav a{display:none}.t.r{text-align:left;left:5vw}}
+</style>
+</head>
+<body>
+<nav><b>ZUKA</b><div><a href="#col">Collections</a><a href="#order">Order</a></div></nav>
+
+<section id="scene">
+  <div class="stick">
+    <div class="bar" id="bar"></div>
+    <video id="v" src="zuka.mp4" muted playsinline preload="auto"></video>
+    <div class="t on" data-a="0" data-b=".16"><small>Craft drinks · Nigeria</small><h2>Drink<br>the dark.</h2><p>Cold, crushed and bottled in black. Scroll to open the can.</p></div>
+    <div class="t r" data-a=".2" data-b=".45"><small>01 — Fruit</small><h2>Crushed<br>raspberry.</h2><p>Whole fruit, pressed the same day. Nothing added that you can’t pronounce.</p></div>
+    <div class="t" data-a=".5" data-b=".75"><small>02 — Lift</small><h2>Fresh<br>mint.</h2><p>A cold, green finish that keeps every sip sharp.</p></div>
+    <div class="t r" data-a=".8" data-b="1.01"><small>03 — Collections</small><h2>Four ways<br>to ZUKA.</h2><p>Keep scrolling and pick yours.</p></div>
+    <div class="hint" id="hint">Scroll ↓</div>
+  </div>
+</section>
+
+<section id="col">
+  <h3>The <i>collections.</i></h3>
+  <div class="tabs" id="tabs"></div>
+  <div class="pane">
+    <img id="img" src="can.jpg" alt="ZUKA can">
+    <div>
+      <h4 id="nm"></h4>
+      <p class="n" id="ds"></p>
+      <div class="meta"><div><span>Size</span><b>330 ml</b></div><div><span>Pack of 6</span><b id="pr"></b></div><div><span>Notes</span><b id="nt"></b></div></div>
+      <a class="btn" id="wa" target="_blank" rel="noopener">Order on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer id="order"><b>ZUKA</b>Lagos · Abuja · Jos — delivery nationwide<br>© 2026 ZUKA Drinks</footer>
+
+<script>
+const C=[
+ {n:'Raspberry Mint',c:'#d63a52',d:'Our signature. Crushed raspberry with a cold mint finish.',p:'₦9,000',t:'Tart · Fresh'},
+ {n:'Zobo Fire',c:'#b3122b',d:'Hibiscus steeped with ginger and clove, served ice cold.',p:'₦8,400',t:'Spiced · Deep'},
+ {n:'Pineapple Ginger',c:'#e8a317',d:'Sun-ripe pineapple with a warm ginger kick.',p:'₦9,000',t:'Sweet · Warm'},
+ {n:'Baobab Berry',c:'#8a3fc4',d:'Baobab fruit and mixed berries, naturally creamy and tart.',p:'₦10,200',t:'Rich · Tangy'}
+];
+const WA='234XXXXXXXXXX'; // client WhatsApp number
+const $=i=>document.getElementById(i),col=$('col'),tabs=$('tabs');
+function pick(i){
+  const x=C[i];col.style.setProperty('--glow',x.c);document.documentElement.style.setProperty('--glow',x.c);
+  $('nm').textContent=x.n;$('ds').textContent=x.d;$('pr').textContent=x.p;$('nt').textContent=x.t;
+  $('wa').href='https://wa.me/'+WA+'?text='+encodeURIComponent('Hi ZUKA, I’d like to order the '+x.n+' (pack of 6).');
+  [...tabs.children].forEach((b,j)=>b.classList.toggle('on',j===i));
+}
+C.forEach((x,i)=>{const b=document.createElement('button');b.textContent=x.n;b.onclick=()=>pick(i);tabs.appendChild(b)});
+pick(0);
+
+const v=$('v'),sc=$('scene'),bar=$('bar'),hint=$('hint'),ts=[...document.querySelectorAll('.t')];
+let target=0,cur=0;
+function onScroll(){
+  const r=sc.getBoundingClientRect(),max=sc.offsetHeight-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/max));
+  target=p;bar.style.width=(p*100)+'%';hint.style.opacity=p>.02?0:1;
+  ts.forEach(t=>t.classList.toggle('on',p>=+t.dataset.a&&p<+t.dataset.b));
+}
+function tick(){
+  cur+=(target-cur)*.12;
+  if(v.duration&&Math.abs(v.currentTime-cur*v.duration)>.02)v.currentTime=cur*(v.duration-.05);
+  requestAnimationFrame(tick);
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+v.addEventListener('loadedmetadata',()=>{v.pause()});v.load();tick();
+</script>
+</body>
+</html>
